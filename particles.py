@@ -5,7 +5,7 @@ import pygame
 
 
 class Particle:
-    def __init__(self, pos: List[int], vel: List[float], max_age: float, age_factor: float = 1.0):
+    def __init__(self, pos: List[int], vel: List[float], max_age: float, age_factor: float=1.0):
         self.pos = pos.copy()
         self.vel = vel.copy()
         self.max_age = max_age
@@ -49,8 +49,14 @@ class Fire_Particle(Particle):
     def render(self, surface: pygame.Surface):
         i = min(int(self.age_percent * len(self.palette)), len(self.palette) - 1)
         a = max(0, int(255 * (1 - self.age_percent)))
+
         pygame.draw.circle(surface, (*self.palette[i], a), self.pos, self.radius)
 
+        if i < 2:
+            surf = pygame.Surface((self.radius * 4, self.radius * 4))
+            surf.set_colorkey((0, 0, 0))
+            pygame.draw.circle(surf, (20, 20, 0), (self.radius * 2, self.radius * 2), self.radius * 2)
+            surface.blit(surf, (self.pos[0] - self.radius * 2, self.pos[1] - self.radius * 2), special_flags=pygame.BLEND_RGB_ADD)
 
 if __name__ == "__main__":
     pygame.init()
