@@ -62,6 +62,7 @@ if __name__ == "__main__":
     living_particles: List[Particle] = []
     dead_particles: List[Particle] = []
     accumulator = 0
+    particle_rate = 120
 
     mouse_btn = False
     mouse_pos = [0, 0]
@@ -87,8 +88,8 @@ if __name__ == "__main__":
         dt = clock.tick(60) / 1000
  
         accumulator += dt
-        while accumulator >= 1 / 120:
-            accumulator -= 1 / 120
+        while accumulator >= 1 / particle_rate:
+            accumulator -= 1 / particle_rate
             if mouse_btn:
                 living_particles.append(Fire_Particle([mouse_pos[0] / 4, mouse_pos[1] / 4]))
         # =================================
