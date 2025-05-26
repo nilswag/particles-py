@@ -52,10 +52,11 @@ class Fire_Particle(Particle):
 
         pygame.draw.circle(surface, (*self.palette[i], a), self.pos, self.radius)
 
-        if i < 2:
+        if i < 3:
             surf = pygame.Surface((self.radius * 4, self.radius * 4))
             surf.set_colorkey((0, 0, 0))
-            pygame.draw.circle(surf, (20, 20, 0), (self.radius * 2, self.radius * 2), self.radius * 2)
+            glow_color = tuple(int(c * 0.07) for c in self.palette[i])
+            pygame.draw.circle(surf, glow_color, (self.radius * 2, self.radius * 2), self.radius * 2)
             surface.blit(surf, (self.pos[0] - self.radius * 2, self.pos[1] - self.radius * 2), special_flags=pygame.BLEND_RGB_ADD)
 
 if __name__ == "__main__":
